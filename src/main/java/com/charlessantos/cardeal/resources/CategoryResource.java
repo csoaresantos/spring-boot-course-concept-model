@@ -1,26 +1,27 @@
 package com.charlessantos.cardeal.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.charlessantos.cardeal.domain.Category;
+import com.charlessantos.cardeal.services.CategoryService;
 
 @RestController
 @RequestMapping(value="/categories")
 public class CategoryResource {
+	
+	@Autowired
+	private CategoryService service;
 
-	@RequestMapping(method=RequestMethod.GET)
-	public List<Category> list() {
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
-		List<Category> categories = new ArrayList<>();
-		categories.add(new Category(1, "SUV"));
-		categories.add(new Category(2, "Hatch"));
-		categories.add(new Category(3, "Sedan"));
+		Category cat = service.find(id);
 		
-		return categories; 
+		return  ResponseEntity.ok().body(cat);
 	}
 }
