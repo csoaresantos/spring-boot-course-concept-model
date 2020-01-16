@@ -8,9 +8,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.charlessantos.cardeal.domain.Category;
+import com.charlessantos.cardeal.domain.City;
 import com.charlessantos.cardeal.domain.Product;
+import com.charlessantos.cardeal.domain.State;
 import com.charlessantos.cardeal.repositories.CategoryRepository;
+import com.charlessantos.cardeal.repositories.CityRepository;
 import com.charlessantos.cardeal.repositories.ProductRepository;
+import com.charlessantos.cardeal.repositories.StateRepository;
 
 @SpringBootApplication
 public class CardealApplication implements CommandLineRunner {
@@ -20,6 +24,12 @@ public class CardealApplication implements CommandLineRunner {
 	
 	@Autowired
 	ProductRepository prodRepository;
+	
+	@Autowired
+	CityRepository cityRepo;
+	
+	@Autowired
+	StateRepository stateRepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CardealApplication.class, args);
@@ -54,6 +64,16 @@ public class CardealApplication implements CommandLineRunner {
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		prodRepository.saveAll(Arrays.asList(prod1,prod2, prod3, prod4, prod5, prod6));
 		
+		State state1 = new State(null, "Minas Gerais", "MG");
+		
+		City city1 = new City(null, "Belo Horizonte", state1);
+		City city2 = new City(null, "Contagem", state1);
+		City city3 = new City(null, "Santa Luzia", state1);
+		
+		state1.getCities().addAll(Arrays.asList(city1, city2, city3));
+		
+		stateRepo.save(state1);
+		cityRepo.saveAll(Arrays.asList(city1, city2, city3));
 	}
 
 }
