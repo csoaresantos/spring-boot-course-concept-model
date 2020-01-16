@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.charlessantos.cardeal.domain.Category;
 import com.charlessantos.cardeal.repositories.CategoryRepository;
+import com.charlessantos.cardeal.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoryService {
@@ -17,6 +18,6 @@ public class CategoryService {
 	public Category find(Integer id) {
 		Optional<Category> returnValue = repo.findById(id);
 		
-		return returnValue.orElse(null);
+		return returnValue.orElseThrow(() -> new ObjectNotFoundException("Object not found! Id:" + id + " TYPE: " + Category.class.getName()));
 	}
 }
