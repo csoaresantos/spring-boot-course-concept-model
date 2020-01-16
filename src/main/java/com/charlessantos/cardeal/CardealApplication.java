@@ -7,12 +7,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.charlessantos.cardeal.domain.Address;
 import com.charlessantos.cardeal.domain.Category;
 import com.charlessantos.cardeal.domain.City;
+import com.charlessantos.cardeal.domain.Client;
 import com.charlessantos.cardeal.domain.Product;
 import com.charlessantos.cardeal.domain.State;
+import com.charlessantos.cardeal.domain.enums.TypeClient;
+import com.charlessantos.cardeal.repositories.AddressRepository;
 import com.charlessantos.cardeal.repositories.CategoryRepository;
 import com.charlessantos.cardeal.repositories.CityRepository;
+import com.charlessantos.cardeal.repositories.ClientRepository;
 import com.charlessantos.cardeal.repositories.ProductRepository;
 import com.charlessantos.cardeal.repositories.StateRepository;
 
@@ -30,6 +35,12 @@ public class CardealApplication implements CommandLineRunner {
 	
 	@Autowired
 	StateRepository stateRepo;
+	
+	@Autowired
+	ClientRepository clientRepo;
+	
+	@Autowired
+	AddressRepository addressRepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CardealApplication.class, args);
@@ -74,6 +85,16 @@ public class CardealApplication implements CommandLineRunner {
 		
 		stateRepo.save(state1);
 		cityRepo.saveAll(Arrays.asList(city1, city2, city3));
+		
+		
+		Client cli1 = new Client(null, "Vando Quirino", "vando@gmail.com", "00000000000", TypeClient.PHYSICALPERSON);
+		cli1.getTelephones().addAll(Arrays.asList("3124480844", "3113460834"));
+		
+		Address addr1 = new Address(null, "Rua um", "1113A", "No complement", "Mangabeira", "31678489", cli1, city1);
+		
+		clientRepo.saveAll(Arrays.asList(cli1));
+		addressRepo.saveAll(Arrays.asList(addr1));
+		
 	}
 
 }
