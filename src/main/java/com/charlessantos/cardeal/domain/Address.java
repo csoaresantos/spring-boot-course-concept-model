@@ -34,6 +34,8 @@ public class Address implements Serializable {
 	@JoinColumn(name="city_id")
 	private City city;
 	
+	public Address() {}
+	
 	public Address(Integer id, String publicPlace, String number, String complement, String neighborhood,
 			String zipCode, Client client, City city) {
 		super();
