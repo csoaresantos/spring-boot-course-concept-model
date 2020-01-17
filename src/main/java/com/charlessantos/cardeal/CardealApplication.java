@@ -1,5 +1,6 @@
 package com.charlessantos.cardeal;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,19 @@ import com.charlessantos.cardeal.domain.Address;
 import com.charlessantos.cardeal.domain.Category;
 import com.charlessantos.cardeal.domain.City;
 import com.charlessantos.cardeal.domain.Client;
+import com.charlessantos.cardeal.domain.Invoice;
+import com.charlessantos.cardeal.domain.PaymentInBill;
+import com.charlessantos.cardeal.domain.PaymentInCard;
 import com.charlessantos.cardeal.domain.Product;
 import com.charlessantos.cardeal.domain.State;
+import com.charlessantos.cardeal.domain.enums.StatusPayment;
 import com.charlessantos.cardeal.domain.enums.TypeClient;
 import com.charlessantos.cardeal.repositories.AddressRepository;
 import com.charlessantos.cardeal.repositories.CategoryRepository;
 import com.charlessantos.cardeal.repositories.CityRepository;
 import com.charlessantos.cardeal.repositories.ClientRepository;
+import com.charlessantos.cardeal.repositories.InvoiceRepository;
+import com.charlessantos.cardeal.repositories.PaymentRepository;
 import com.charlessantos.cardeal.repositories.ProductRepository;
 import com.charlessantos.cardeal.repositories.StateRepository;
 
@@ -41,6 +48,12 @@ public class CardealApplication implements CommandLineRunner {
 	
 	@Autowired
 	AddressRepository addressRepo;
+	
+	@Autowired
+	InvoiceRepository invoiceRepo;
+	
+	@Autowired
+	PaymentRepository paymentRepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CardealApplication.class, args);
@@ -91,10 +104,26 @@ public class CardealApplication implements CommandLineRunner {
 		cli1.getTelephones().addAll(Arrays.asList("3124480844", "3113460834"));
 		
 		Address addr1 = new Address(null, "Rua um", "1113A", "No complement", "Mangabeira", "31678489", cli1, city1);
+		Address addr2 = new Address(null, "Rua três", "13A", "No complement", "California", "31678489", cli1, city2);
 		
 		clientRepo.saveAll(Arrays.asList(cli1));
-		addressRepo.saveAll(Arrays.asList(addr1));
+		addressRepo.saveAll(Arrays.asList(addr1, addr2));
 		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Invoice invoice1 = new Invoice(null, dateFormat.parse("30/09/2018 10:30"),cli1, addr1);
+		Invoice invoice2 = new Invoice(null, dateFormat.parse("10/10/2020 17:13"),cli1, addr2);
+		
+		PaymentInCard paymentCredit = new PaymentInCard(null, StatusPayment.PAID, invoice1, 6);
+		invoice1.setPayment(paymentCredit);
+		
+		PaymentInBill paymentBill = new PaymentInBill(null, StatusPayment.PENDING, invoice2, dateFormat.parse("20/10/2020 12:15"), null);
+		invoice2.setPayment(paymentBill);
+		
+		cli1.getInvoices().addAll(Arrays.asList(invoice1, invoice2));
+		
+		invoiceRepo.saveAll(Arrays.asList(invoice1, invoice2));
+		
+		paymentRepo.saveAll(Arrays.asList(paymentCredit, paymentBill));
 	}
 
 }
