@@ -3,9 +3,9 @@ package com.charlessantos.cardeal.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.charlessantos.cardeal.domain.Invoice;
+import com.charlessantos.cardeal.domain.ItemOrder;
 
 @Repository
-public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
+public interface ItemOrderRepository extends JpaRepository<ItemOrder, Integer> {
 
 }

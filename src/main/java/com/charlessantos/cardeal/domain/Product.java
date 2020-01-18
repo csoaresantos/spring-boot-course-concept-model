@@ -2,7 +2,9 @@ package com.charlessantos.cardeal.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Product implements Serializable {
@@ -33,6 +37,10 @@ public class Product implements Serializable {
 			inverseJoinColumns = @JoinColumn(name="category_id"))
 	private List<Category> categories = new ArrayList<>();
 
+	@JsonIgnore
+	@OneToMany(mappedBy="id.product")
+	private Set<ItemOrder> items = new HashSet<>();
+	
 	public Product() {}
 
 	public Product(Integer id, String name, Double price) {
@@ -42,6 +50,17 @@ public class Product implements Serializable {
 		this.price = price;
 	}
 
+	@JsonIgnore
+	public List<PurchaseOrder> getPurchaseOrders() {
+		List<PurchaseOrder> purchaseOrders = new ArrayList<>();
+		
+		for(ItemOrder itemOrder : this.items) {
+			purchaseOrders.add(itemOrder.getPurchaseOrder());
+		}
+		
+		return purchaseOrders;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -70,6 +89,14 @@ public class Product implements Serializable {
 		return this.categories;
 	}
 	
+	public Set<ItemOrder> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<ItemOrder> items) {
+		this.items = items;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -93,7 +120,5 @@ public class Product implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-	
-	
+	}	
 }

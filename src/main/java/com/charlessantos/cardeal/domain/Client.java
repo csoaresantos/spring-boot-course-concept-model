@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.charlessantos.cardeal.domain.enums.TypeClient;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -37,8 +38,9 @@ public class Client implements Serializable {
 	@CollectionTable(name="Telephone")
 	private Set<String> telephones = new HashSet<String>();
 	
+	@JsonBackReference
 	@OneToMany(mappedBy="client")
-	private List<Invoice> invoices = new ArrayList<>();
+	private List<PurchaseOrder> purchaseOrders = new ArrayList<>();
 	
 	public Client() {}
 	
@@ -99,12 +101,12 @@ public class Client implements Serializable {
 		this.telephones = telephones;
 	}
 	
-	public List<Invoice> getInvoices() {
-		return invoices;
+	public List<PurchaseOrder> getPurchaseOrders() {
+		return purchaseOrders;
 	}
 
-	public void setInvoices(List<Invoice> invoices) {
-		this.invoices = invoices;
+	public void setPurchaseOrders(List<PurchaseOrder> purchaseOrders) {
+		this.purchaseOrders = purchaseOrders;
 	}
 	
 	@Override

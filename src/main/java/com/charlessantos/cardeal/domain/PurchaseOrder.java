@@ -2,6 +2,8 @@ package com.charlessantos.cardeal.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,32 +12,44 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
-public class Invoice implements Serializable{
+public class PurchaseOrder implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date instant;
 
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="invoice")
+	@JsonManagedReference
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "purchaseOrder")
 	private Payment payment;
-	
-	@ManyToOne
-	@JoinColumn(name="client_id")
-	private Client client;
-	
-	@ManyToOne
-	@JoinColumn(name="delivery_address_id")
-	private Address address;
-	
-	public Invoice() {}
 
-	public Invoice(Integer id, Date instant, Client client, Address address) {
+	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name = "client_id")
+	private Client client;
+
+	@ManyToOne
+	@JoinColumn(name = "delivery_address_id")
+	private Address address;
+
+	@OneToMany(mappedBy = "id.purchaseOrder")
+	private Set<ItemOrder> items = new HashSet<>();
+
+	public PurchaseOrder() {
+	}
+
+	public PurchaseOrder(Integer id, Date instant, Client client, Address address) {
 		super();
 		this.id = id;
 		this.instant = instant;
@@ -83,6 +97,14 @@ public class Invoice implements Serializable{
 		this.address = address;
 	}
 
+	public Set<ItemOrder> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<ItemOrder> items) {
+		this.items = items;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,7 +121,7 @@ public class Invoice implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Invoice other = (Invoice) obj;
+		PurchaseOrder other = (PurchaseOrder) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -107,6 +129,4 @@ public class Invoice implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 }

@@ -12,7 +12,8 @@ import com.charlessantos.cardeal.domain.Address;
 import com.charlessantos.cardeal.domain.Category;
 import com.charlessantos.cardeal.domain.City;
 import com.charlessantos.cardeal.domain.Client;
-import com.charlessantos.cardeal.domain.Invoice;
+import com.charlessantos.cardeal.domain.ItemOrder;
+import com.charlessantos.cardeal.domain.PurchaseOrder;
 import com.charlessantos.cardeal.domain.PaymentInBill;
 import com.charlessantos.cardeal.domain.PaymentInCard;
 import com.charlessantos.cardeal.domain.Product;
@@ -23,7 +24,8 @@ import com.charlessantos.cardeal.repositories.AddressRepository;
 import com.charlessantos.cardeal.repositories.CategoryRepository;
 import com.charlessantos.cardeal.repositories.CityRepository;
 import com.charlessantos.cardeal.repositories.ClientRepository;
-import com.charlessantos.cardeal.repositories.InvoiceRepository;
+import com.charlessantos.cardeal.repositories.ItemOrderRepository;
+import com.charlessantos.cardeal.repositories.PurchaseOrderRepository;
 import com.charlessantos.cardeal.repositories.PaymentRepository;
 import com.charlessantos.cardeal.repositories.ProductRepository;
 import com.charlessantos.cardeal.repositories.StateRepository;
@@ -50,10 +52,13 @@ public class CardealApplication implements CommandLineRunner {
 	AddressRepository addressRepo;
 	
 	@Autowired
-	InvoiceRepository invoiceRepo;
+	PurchaseOrderRepository orderRepo;
 	
 	@Autowired
 	PaymentRepository paymentRepo;
+	
+	@Autowired
+	ItemOrderRepository itemOrderRepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CardealApplication.class, args);
@@ -110,20 +115,32 @@ public class CardealApplication implements CommandLineRunner {
 		addressRepo.saveAll(Arrays.asList(addr1, addr2));
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		Invoice invoice1 = new Invoice(null, dateFormat.parse("30/09/2018 10:30"),cli1, addr1);
-		Invoice invoice2 = new Invoice(null, dateFormat.parse("10/10/2020 17:13"),cli1, addr2);
+		PurchaseOrder order1 = new PurchaseOrder(null, dateFormat.parse("30/09/2018 10:30"),cli1, addr1);
+		PurchaseOrder order2 = new PurchaseOrder(null, dateFormat.parse("10/10/2020 17:13"),cli1, addr2);
 		
-		PaymentInCard paymentCredit = new PaymentInCard(null, StatusPayment.PAID, invoice1, 6);
-		invoice1.setPayment(paymentCredit);
+		PaymentInCard paymentCredit = new PaymentInCard(null, StatusPayment.PAID, order1, 6);
+		order1.setPayment(paymentCredit);
 		
-		PaymentInBill paymentBill = new PaymentInBill(null, StatusPayment.PENDING, invoice2, dateFormat.parse("20/10/2020 12:15"), null);
-		invoice2.setPayment(paymentBill);
+		PaymentInBill paymentBill = new PaymentInBill(null, StatusPayment.PENDING, order2, dateFormat.parse("20/10/2020 12:15"), null);
+		order2.setPayment(paymentBill);
 		
-		cli1.getInvoices().addAll(Arrays.asList(invoice1, invoice2));
+		cli1.getPurchaseOrders().addAll(Arrays.asList(order1, order2));
 		
-		invoiceRepo.saveAll(Arrays.asList(invoice1, invoice2));
+		orderRepo.saveAll(Arrays.asList(order1, order2));
 		
 		paymentRepo.saveAll(Arrays.asList(paymentCredit, paymentBill));
+		
+		
+		ItemOrder ip1 = new ItemOrder(prod1, order1,0.00, 1, 2000.00);
+		ItemOrder ip2 = new ItemOrder(prod3, order1,0.00, 1, 8000.00);
+		
+		order1.getItems().addAll(Arrays.asList(ip1, ip2));
+		order2.getItems().add(ip2);
+		
+		prod1.getItems().addAll(Arrays.asList(ip1));
+		prod3.getItems().add(ip2);
+		
+		itemOrderRepo.saveAll(Arrays.asList(ip1, ip2));
 	}
 
 }

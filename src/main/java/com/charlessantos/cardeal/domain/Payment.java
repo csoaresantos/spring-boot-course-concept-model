@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.charlessantos.cardeal.domain.enums.StatusPayment;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -22,18 +23,19 @@ public abstract class Payment implements Serializable{
 	private Integer id;
 	private Integer status;
 	
+	@JsonBackReference
 	@OneToOne
-	@JoinColumn(name="invoice_id")
+	@JoinColumn(name="purchase_order_id")
 	@MapsId
-	private Invoice invoice;
+	private PurchaseOrder purchaseOrder;
 	
 	public Payment() {}
 
-	public Payment(Integer id, StatusPayment status, Invoice invoice) {
+	public Payment(Integer id, StatusPayment status, PurchaseOrder purchaseOrder) {
 		super();
 		this.id = id;
 		this.status = status.getCode();
-		this.invoice = invoice; 
+		this.purchaseOrder = purchaseOrder; 
 	}
 
 	public Integer getId() {
@@ -52,12 +54,12 @@ public abstract class Payment implements Serializable{
 		this.status = status.getCode();
 	}
 
-	public Invoice getInvoice() {
-		return invoice;
+	public PurchaseOrder getInvoice() {
+		return purchaseOrder;
 	}
 
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
+	public void setInvoice(PurchaseOrder purchaseOrder) {
+		this.purchaseOrder = purchaseOrder;
 	}
 
 	@Override

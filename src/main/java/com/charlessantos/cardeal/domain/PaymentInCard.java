@@ -13,8 +13,8 @@ public class PaymentInCard extends Payment {
 	public PaymentInCard() {
 	}
 
-	public PaymentInCard(Integer id, StatusPayment status, Invoice invoice, Integer numberOfInstallments) {
-		super(id, status, invoice);
+	public PaymentInCard(Integer id, StatusPayment status, PurchaseOrder purchaseOrder, Integer numberOfInstallments) {
+		super(id, status, purchaseOrder);
 		this.numberOfInstallments = numberOfInstallments;
 	}
 

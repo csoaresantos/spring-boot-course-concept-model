@@ -5,19 +5,23 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.charlessantos.cardeal.domain.enums.StatusPayment;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class PaymentInBill extends Payment {
 	private static final long serialVersionUID = 1L;
 	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dueDate;
+	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date payDay;
 	
 	public PaymentInBill() {
 	}
 	
-	public PaymentInBill(Integer id, StatusPayment status, Invoice invoice, Date dueDate, Date payDay) {
-		super(id, status, invoice);
+	public PaymentInBill(Integer id, StatusPayment status, PurchaseOrder purchaseOrder, Date dueDate, Date payDay) {
+		super(id, status, purchaseOrder);
 		this.dueDate = dueDate;
 		this.payDay = payDay;
 	}
