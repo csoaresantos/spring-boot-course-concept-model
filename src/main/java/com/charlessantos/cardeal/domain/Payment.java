@@ -54,11 +54,13 @@ public abstract class Payment implements Serializable{
 		this.status = status.getCode();
 	}
 
-	public PurchaseOrder getInvoice() {
+	@JsonIgnore
+	public PurchaseOrder getPurchaseOrder() {
 		return purchaseOrder;
 	}
 
-	public void setInvoice(PurchaseOrder purchaseOrder) {
+	@JsonIgnore
+	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
 		this.purchaseOrder = purchaseOrder;
 	}
 
