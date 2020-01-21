@@ -9,14 +9,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.charlessantos.cardeal.domain.Address;
+import com.charlessantos.cardeal.domain.Car;
 import com.charlessantos.cardeal.domain.Category;
 import com.charlessantos.cardeal.domain.City;
 import com.charlessantos.cardeal.domain.Client;
 import com.charlessantos.cardeal.domain.ItemOrder;
-import com.charlessantos.cardeal.domain.PurchaseOrder;
 import com.charlessantos.cardeal.domain.PaymentInBill;
 import com.charlessantos.cardeal.domain.PaymentInCard;
 import com.charlessantos.cardeal.domain.Product;
+import com.charlessantos.cardeal.domain.PurchaseOrder;
 import com.charlessantos.cardeal.domain.State;
 import com.charlessantos.cardeal.domain.enums.StatusPayment;
 import com.charlessantos.cardeal.domain.enums.TypeClient;
@@ -25,10 +26,11 @@ import com.charlessantos.cardeal.repositories.CategoryRepository;
 import com.charlessantos.cardeal.repositories.CityRepository;
 import com.charlessantos.cardeal.repositories.ClientRepository;
 import com.charlessantos.cardeal.repositories.ItemOrderRepository;
-import com.charlessantos.cardeal.repositories.PurchaseOrderRepository;
 import com.charlessantos.cardeal.repositories.PaymentRepository;
 import com.charlessantos.cardeal.repositories.ProductRepository;
+import com.charlessantos.cardeal.repositories.PurchaseOrderRepository;
 import com.charlessantos.cardeal.repositories.StateRepository;
+import com.charlessantos.cardeal.repositories.VehicleRepository;
 
 @SpringBootApplication
 public class CardealApplication implements CommandLineRunner {
@@ -59,6 +61,9 @@ public class CardealApplication implements CommandLineRunner {
 	
 	@Autowired
 	ItemOrderRepository itemOrderRepo;
+	
+	@Autowired
+	VehicleRepository vehicleRepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CardealApplication.class, args);
@@ -141,6 +146,9 @@ public class CardealApplication implements CommandLineRunner {
 		prod3.getItems().add(ip2);
 		
 		itemOrderRepo.saveAll(Arrays.asList(ip1, ip2));
+		
+		Car vehicle = new Car(null, "OQE2200", "VolksWagen", "Hatch", 2013, 2013, "PRIME", "1.6", "16", "5", "Vermelho", "Flex", "76.000");
+		vehicleRepo.save(vehicle);
 	}
 
 }
