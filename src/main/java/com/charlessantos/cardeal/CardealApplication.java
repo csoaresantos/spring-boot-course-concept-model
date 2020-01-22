@@ -19,6 +19,8 @@ import com.charlessantos.cardeal.domain.PaymentInCard;
 import com.charlessantos.cardeal.domain.Product;
 import com.charlessantos.cardeal.domain.PurchaseOrder;
 import com.charlessantos.cardeal.domain.State;
+import com.charlessantos.cardeal.domain.VehicleBrand;
+import com.charlessantos.cardeal.domain.VehicleModel;
 import com.charlessantos.cardeal.domain.enums.StatusPayment;
 import com.charlessantos.cardeal.domain.enums.TypeClient;
 import com.charlessantos.cardeal.repositories.AddressRepository;
@@ -30,6 +32,8 @@ import com.charlessantos.cardeal.repositories.PaymentRepository;
 import com.charlessantos.cardeal.repositories.ProductRepository;
 import com.charlessantos.cardeal.repositories.PurchaseOrderRepository;
 import com.charlessantos.cardeal.repositories.StateRepository;
+import com.charlessantos.cardeal.repositories.VehicleBrandRepository;
+import com.charlessantos.cardeal.repositories.VehicleModelRepository;
 import com.charlessantos.cardeal.repositories.VehicleRepository;
 
 @SpringBootApplication
@@ -64,7 +68,13 @@ public class CardealApplication implements CommandLineRunner {
 	
 	@Autowired
 	VehicleRepository vehicleRepo;
+
+	@Autowired
+	VehicleBrandRepository vehicleBrandRepo;
 	
+	@Autowired
+	VehicleModelRepository vehicleModelRepo;
+
 	public static void main(String[] args) {
 		SpringApplication.run(CardealApplication.class, args);
 	}
@@ -146,9 +156,52 @@ public class CardealApplication implements CommandLineRunner {
 		prod3.getItems().add(ip2);
 		
 		itemOrderRepo.saveAll(Arrays.asList(ip1, ip2));
+
+		VehicleBrand brand1 = new VehicleBrand(null, "Audi");
+		VehicleBrand brand2 = new VehicleBrand(null, "BMW");
+		VehicleBrand brand3 = new VehicleBrand(null, "Chevrolet");
+		VehicleBrand brand4 = new VehicleBrand(null, "Citroen");
+		VehicleBrand brand5 = new VehicleBrand(null, "Fiat");
+		VehicleBrand brand6 = new VehicleBrand(null, "Ford");
+		VehicleBrand brand7 = new VehicleBrand(null, "Hyundai");
+		VehicleBrand brand8 = new VehicleBrand(null, "Honda");
+		VehicleBrand brand9 = new VehicleBrand(null, "Jeep");
+		VehicleBrand brand10 = new VehicleBrand(null, "Mercedes Benz");
+		VehicleBrand brand11 = new VehicleBrand(null, "Mitsubishi");
+		VehicleBrand brand12 = new VehicleBrand(null, "Nissan");
+		VehicleBrand brand13 = new VehicleBrand(null, "Peugeot");
+		VehicleBrand brand14 = new VehicleBrand(null, "Renault");
+		VehicleBrand brand15 = new VehicleBrand(null, "Toytota");
+		VehicleBrand brand16 = new VehicleBrand(null, "Volkswagen");
 		
-		Car vehicle = new Car(null, "OQE2200", "VolksWagen", "Hatch", 2013, 2013, "PRIME", "1.6", "16", "5", "Vermelho", "Flex", "76.000");
-		vehicleRepo.save(vehicle);
+		VehicleModel vehicleModel1 = new VehicleModel(null, "A1", brand1);
+		VehicleModel vehicleModel2 = new VehicleModel(null, "A4", brand2);
+		VehicleModel vehicleModel3 = new VehicleModel(null, "X1", brand3);
+		VehicleModel vehicleModel4 = new VehicleModel(null, "Onix", brand4);
+		VehicleModel vehicleModel5 = new VehicleModel(null, "Xsara Picasso", brand5);
+		VehicleModel vehicleModel6 = new VehicleModel(null, "Argo", brand6);
+		VehicleModel vehicleModel7 = new VehicleModel(null, "Focus", brand7);
+		VehicleModel vehicleModel8 = new VehicleModel(null, "HB20", brand8);
+		VehicleModel vehicleModel9 = new VehicleModel(null, "Civic", brand9);
+		VehicleModel vehicleMode10 = new VehicleModel(null, "XC160", brand10);
+		VehicleModel vehicleModel11 = new VehicleModel(null, "Lancer", brand11);
+		VehicleModel vehicleModel12 = new VehicleModel(null, "Fontier", brand12);
+		VehicleModel vehicleModel13 = new VehicleModel(null, "208", brand13);
+		VehicleModel vehicleModel14 = new VehicleModel(null, "Sandero", brand14);
+		VehicleModel vehicleModel15 = new VehicleModel(null, "Corolla", brand15);
+		VehicleModel vehicleModel16 = new VehicleModel(null, "Fox", brand16);
+		VehicleModel vehicleModel17 = new VehicleModel(null, "Virtus", brand16);
+		VehicleModel vehicleModel18 = new VehicleModel(null, "Etios", brand15);
+		
+		vehicleBrandRepo.saveAll(Arrays.asList(brand1, brand2, brand3, brand4, brand5, brand6, brand7, brand8, brand9, brand10, brand11, brand12, brand13, brand14, brand15, brand16));
+		vehicleModelRepo.saveAll(Arrays.asList(vehicleModel1, vehicleModel2, vehicleModel3, vehicleModel4, vehicleModel5, vehicleModel6, vehicleModel7, vehicleModel8, vehicleModel9, vehicleMode10, vehicleModel11, vehicleModel12, vehicleModel13, vehicleModel14, vehicleModel15, vehicleModel16, vehicleModel17, vehicleModel18));
+
+		Car vehicle1 = new Car(null, "OQE2200", vehicleModel16, 2013, 2013, "PRIME", "1.6", "16", "5", "Vermelho", "Flex", "76.000");
+		Car vehicle2 = new Car(null, "OQE2200", vehicleModel17, 2013, 2013, "PRIME", "1.6", "16", "5", "Vermelho", "Flex", "76.000");
+		Car vehicle3 = new Car(null, "OQE2200", vehicleModel18, 2013, 2013, "PRIME", "1.6", "16", "5", "Vermelho", "Flex", "76.000");
+		Car vehicle4 = new Car(null, "OQE2200", vehicleModel16, 2013, 2013, "PRIME", "1.6", "16", "5", "Vermelho", "Flex", "76.000");
+
+		vehicleRepo.saveAll(Arrays.asList(vehicle1, vehicle2, vehicle3, vehicle4));
 	}
 
 }

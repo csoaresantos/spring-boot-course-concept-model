@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -18,20 +20,22 @@ public abstract class Vehicle implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String licensePlate;
-	private String brand;
-	private String model;
+
 	private Integer manufacturingYear;
 	private Integer modelYear;
 	private String version;
 
+	@ManyToOne
+	@JoinColumn(name="vehicle_model_id")
+	private VehicleModel model;
+	
 	public Vehicle() {}
 	
-	public Vehicle(Integer id, String licensePlate, String brand, String model, Integer manufacturingYear, Integer modelYear,
+	public Vehicle(Integer id, String licensePlate, VehicleModel model, Integer manufacturingYear, Integer modelYear,
 			String version) {
 		super();
 		this.id = id;
 		this.licensePlate = licensePlate;
-		this.brand = brand;
 		this.model = model;
 		this.manufacturingYear = manufacturingYear;
 		this.modelYear = modelYear;
@@ -54,19 +58,11 @@ public abstract class Vehicle implements Serializable {
 		this.licensePlate = licensePlate;
 	}
 	
-	public String getBrand() {
-		return brand;
-	}
-	
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-	
-	public String getModel() {
+	public VehicleModel getModel() {
 		return model;
 	}
 	
-	public void setModel(String model) {
+	public void setVehicleModel(VehicleModel model) {
 		this.model = model;
 	}
 	

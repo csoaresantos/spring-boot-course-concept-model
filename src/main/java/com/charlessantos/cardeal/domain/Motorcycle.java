@@ -10,9 +10,9 @@ public class Motorcycle extends Vehicle {
 
 	public Motorcycle() {}
 
-	public Motorcycle(Integer id, String licensePlate, String brand, String model, Integer manufacturingYear,
+	public Motorcycle(Integer id, String licensePlate, VehicleModel model, Integer manufacturingYear,
 			Integer modelYear, String version, Integer cylinders) {
-		super(id, licensePlate, brand, model, manufacturingYear, modelYear, version);
+		super(id, licensePlate, model, manufacturingYear, modelYear, version);
 		
 		this.cylinders = cylinders;
 	}
