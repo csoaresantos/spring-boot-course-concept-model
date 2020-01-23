@@ -18,7 +18,7 @@ public class CategoryResource {
 	private CategoryService service;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Category> find(@PathVariable Integer id) {
 		
 		Category cat = service.find(id);
 		

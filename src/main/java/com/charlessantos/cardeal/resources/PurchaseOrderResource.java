@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.charlessantos.cardeal.domain.PurchaseOrder;
 import com.charlessantos.cardeal.services.PurchaseOrderService;
 
 @RestController
@@ -17,7 +18,7 @@ public class PurchaseOrderResource {
 	PurchaseOrderService purchaseOrderService;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<PurchaseOrder> find(@PathVariable Integer id) {
 		return ResponseEntity.ok(purchaseOrderService.find(id));
 	}
 }

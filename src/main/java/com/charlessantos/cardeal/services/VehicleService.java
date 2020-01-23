@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.charlessantos.cardeal.domain.Car;
 import com.charlessantos.cardeal.domain.Vehicle;
 import com.charlessantos.cardeal.repositories.VehicleRepository;
 import com.charlessantos.cardeal.services.exceptions.ObjectNotFoundException;
@@ -19,5 +20,14 @@ public class VehicleService {
 		
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Não foi encontrado nenhum veículo com o id: " + id));
 	}
+	
+	public Car save(Car vehicle) {
+		vehicle.setId(null);
+		return vehicleRepo.save(vehicle);
+	}
 
+	public Car update(Car vehicle) {
+		find(vehicle.getId());
+		return vehicleRepo.save(vehicle);
+	}
 }
