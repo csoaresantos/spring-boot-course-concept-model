@@ -1,5 +1,6 @@
 package com.charlessantos.cardeal.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,9 @@ public class VehicleService {
 		} catch (DataIntegrityViolationException ex) {
 			throw new DataIntegrityException("Não foi possível deletar item porque possui uma associação.", ex);
 		}
+	}
+	
+	public List<Vehicle> findAll() {
+		return vehicleRepo.findAll();
 	}
 }

@@ -1,6 +1,9 @@
 package com.charlessantos.cardeal.resources;
 
 import java.net.URI;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.charlessantos.cardeal.domain.Car;
 import com.charlessantos.cardeal.domain.Vehicle;
+import com.charlessantos.cardeal.dto.VehicleDTO;
 import com.charlessantos.cardeal.services.VehicleService;
 
 @RestController
@@ -45,5 +49,12 @@ public class VehicleResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		vehicleService.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<VehicleDTO>> findAll() {
+		List<Vehicle> vehicles = vehicleService.findAll();
+		List<VehicleDTO> vehiclesDTO = vehicles.stream().map(o -> new VehicleDTO(o)).collect(Collectors.toList());
+		return ResponseEntity.ok(vehiclesDTO);
 	}
 }
