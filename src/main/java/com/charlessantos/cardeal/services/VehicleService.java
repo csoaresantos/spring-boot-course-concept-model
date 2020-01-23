@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.charlessantos.cardeal.domain.Car;
@@ -45,5 +48,10 @@ public class VehicleService {
 	
 	public List<Vehicle> findAll() {
 		return vehicleRepo.findAll();
+	}
+
+	public Page<Vehicle> findByPage(Integer pageIndice, Integer linesPerPage, String direction, String orderBy) {
+		PageRequest page = PageRequest.of(pageIndice, linesPerPage, Direction.valueOf(direction), orderBy);
+		return vehicleRepo.findAll(page);
 	}
 }
