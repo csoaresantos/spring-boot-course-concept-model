@@ -2,27 +2,31 @@ package com.charlessantos.cardeal.domain;
 
 import javax.persistence.Entity;
 
+import com.charlessantos.cardeal.domain.enums.VehicleColor;
+import com.charlessantos.cardeal.domain.enums.VehicleDoorQuantity;
+import com.charlessantos.cardeal.domain.enums.VehicleFuelType;
+
 @Entity
 public class Car extends Vehicle {
 	private static final long serialVersionUID = 1L;
 	
 	private String engine;
 	private String valve;
-	private String door;
-	private String color;
-	private String fuel;
-	private String kilometers;
+	private Integer door;
+	private Integer color;
+	private Integer fuel;
+	private Integer kilometers;
 
 	public Car() {}
 	
 	public Car(Integer id, String licensePlate, VehicleModel model, Integer manufacturingYear, Integer modelYear,
-			String version, String engine, String valve, String door, String color, String fuel, String kilometers) {
+			String version, String engine, String valve, VehicleDoorQuantity door, VehicleColor color, VehicleFuelType fuel, Integer kilometers) {
 		super(id, licensePlate, model, manufacturingYear, modelYear, version);
 		this.engine = engine;
 		this.valve = valve;
-		this.door = door;
-		this.color = color;
-		this.fuel = fuel;
+		this.door = door.getCode();
+		this.color = color.getCode();
+		this.fuel = fuel.getCode();
 		this.kilometers = kilometers;
 	}
 
@@ -42,35 +46,35 @@ public class Car extends Vehicle {
 		this.valve = valve;
 	}
 	
-	public String getDoor() {
-		return door;
+	public VehicleDoorQuantity getDoor() {
+		return VehicleDoorQuantity.toEnum(door);
 	}
 	
-	public void setDoor(String door) {
-		this.door = door;
+	public void setDoor(VehicleDoorQuantity door) {
+		this.door = door.getCode();
 	}
 	
-	public String getColor() {
-		return color;
+	public VehicleColor getColor() {
+		return VehicleColor.toEnum(color);
 	}
 	
-	public void setColor(String color) {
-		this.color = color;
+	public void setColor(VehicleColor color) {
+		this.color = color.getCode();
 	}
 	
-	public String getFuel() {
-		return fuel;
+	public VehicleFuelType getFuel() {
+		return VehicleFuelType.toEnum(fuel);
 	}
 	
-	public void setFuel(String fuel) {
-		this.fuel = fuel;
+	public void setFuel(VehicleFuelType fuel) {
+		this.fuel = fuel.getCode();
 	}
 	
-	public String getKilometers() {
+	public Integer getKilometers() {
 		return kilometers;
 	}
 	
-	public void setKilometers(String kilometers) {
+	public void setKilometers(Integer kilometers) {
 		this.kilometers = kilometers;
 	}
 	

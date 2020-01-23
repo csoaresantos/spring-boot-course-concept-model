@@ -23,6 +23,9 @@ import com.charlessantos.cardeal.domain.VehicleBrand;
 import com.charlessantos.cardeal.domain.VehicleModel;
 import com.charlessantos.cardeal.domain.enums.StatusPayment;
 import com.charlessantos.cardeal.domain.enums.TypeClient;
+import com.charlessantos.cardeal.domain.enums.VehicleColor;
+import com.charlessantos.cardeal.domain.enums.VehicleDoorQuantity;
+import com.charlessantos.cardeal.domain.enums.VehicleFuelType;
 import com.charlessantos.cardeal.repositories.AddressRepository;
 import com.charlessantos.cardeal.repositories.CategoryRepository;
 import com.charlessantos.cardeal.repositories.CityRepository;
@@ -193,13 +196,18 @@ public class CardealApplication implements CommandLineRunner {
 		VehicleModel vehicleModel17 = new VehicleModel(null, "Virtus", brand16);
 		VehicleModel vehicleModel18 = new VehicleModel(null, "Etios", brand15);
 		
-		vehicleBrandRepo.saveAll(Arrays.asList(brand1, brand2, brand3, brand4, brand5, brand6, brand7, brand8, brand9, brand10, brand11, brand12, brand13, brand14, brand15, brand16));
-		vehicleModelRepo.saveAll(Arrays.asList(vehicleModel1, vehicleModel2, vehicleModel3, vehicleModel4, vehicleModel5, vehicleModel6, vehicleModel7, vehicleModel8, vehicleModel9, vehicleMode10, vehicleModel11, vehicleModel12, vehicleModel13, vehicleModel14, vehicleModel15, vehicleModel16, vehicleModel17, vehicleModel18));
+		vehicleBrandRepo.saveAll(Arrays.asList(brand1, brand2, brand3, brand4, brand5, brand6, brand7, 
+				brand8, brand9, brand10, brand11, brand12, brand13, brand14, brand15, brand16));
 
-		Car vehicle1 = new Car(null, "OQE2200", vehicleModel16, 2013, 2013, "PRIME", "1.6", "16", "5", "Vermelho", "Flex", "76.000");
-		Car vehicle2 = new Car(null, "OQE2200", vehicleModel17, 2013, 2013, "PRIME", "1.6", "16", "5", "Vermelho", "Flex", "76.000");
-		Car vehicle3 = new Car(null, "OQE2200", vehicleModel18, 2013, 2013, "PRIME", "1.6", "16", "5", "Vermelho", "Flex", "76.000");
-		Car vehicle4 = new Car(null, "OQE2200", vehicleModel16, 2013, 2013, "PRIME", "1.6", "16", "5", "Vermelho", "Flex", "76.000");
+		vehicleModelRepo.saveAll(Arrays.asList(vehicleModel1, vehicleModel2, vehicleModel3, vehicleModel4, 
+				vehicleModel5, vehicleModel6, vehicleModel7, vehicleModel8, vehicleModel9, vehicleMode10, 
+				vehicleModel11, vehicleModel12, vehicleModel13, vehicleModel14, vehicleModel15, vehicleModel16, 
+				vehicleModel17, vehicleModel18));
+
+		Car vehicle1 = new Car(null, "OQE2200", vehicleModel16, 2013, 2013, "PRIME", "1.6", "16", VehicleDoorQuantity.FIVE_DOOR, VehicleColor.VERMELHO, VehicleFuelType.BIFUEL, 76000);
+		Car vehicle2 = new Car(null, "OQE2200", vehicleModel17, 2013, 2013, "PRIME", "1.6", "16", VehicleDoorQuantity.TWO_DOOR, VehicleColor.AZUL, VehicleFuelType.BIFUEL, 76000);
+		Car vehicle3 = new Car(null, "OQE2200", vehicleModel18, 2013, 2013, "PRIME", "1.6", "16", VehicleDoorQuantity.TWO_DOOR, VehicleColor.BRANCO, VehicleFuelType.BIFUEL, 76000);
+		Car vehicle4 = new Car(null, "OQE2200", vehicleModel16, 2013, 2013, "PRIME", "1.6", "16", VehicleDoorQuantity.FIVE_DOOR, VehicleColor.PRETO, VehicleFuelType.BIFUEL, 76000);
 
 		vehicleRepo.saveAll(Arrays.asList(vehicle1, vehicle2, vehicle3, vehicle4));
 	}
