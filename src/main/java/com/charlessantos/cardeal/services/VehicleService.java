@@ -3,11 +3,13 @@ package com.charlessantos.cardeal.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.charlessantos.cardeal.domain.Car;
 import com.charlessantos.cardeal.domain.Vehicle;
 import com.charlessantos.cardeal.repositories.VehicleRepository;
+import com.charlessantos.cardeal.services.exceptions.DataIntegrityException;
 import com.charlessantos.cardeal.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -29,5 +31,14 @@ public class VehicleService {
 	public Car update(Car vehicle) {
 		find(vehicle.getId());
 		return vehicleRepo.save(vehicle);
+	}
+	
+	public void delete(Integer vehicle) {
+		find(vehicle);
+		try {
+			vehicleRepo.deleteById(vehicle);
+		} catch (DataIntegrityViolationException ex) {
+			throw new DataIntegrityException("Não foi possível deletar item porque possui uma associação.", ex);
+		}
 	}
 }
