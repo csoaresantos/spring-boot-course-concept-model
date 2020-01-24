@@ -23,6 +23,15 @@ public class ClientDTO implements Serializable {
 	@Email(message="E-mail inválido!")
 	private String email;
 	private String cpfOrCnpj;
+	private Integer typeClient;
+	private String phone;
+
+	private String publicPlace;
+	private String number;
+	private String complement;
+	private String neighborhood;
+	private String zipCode;
+	private Integer cidadeId;
 
 	public ClientDTO() {}
 
@@ -64,4 +73,70 @@ public class ClientDTO implements Serializable {
 	public void setCpfOrCnpj(String cpfOrCnpj) {
 		this.cpfOrCnpj = cpfOrCnpj;
 	}
+
+	public Integer getTypeClient() {
+		return typeClient;
+	}
+
+	public void setTypeClient(Integer typeClient) {
+		this.typeClient = typeClient;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getPublicPlace() {
+		return publicPlace;
+	}
+
+	public void setPublicPlace(String publicPlace) {
+		this.publicPlace = publicPlace;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getComplement() {
+		return complement;
+	}
+
+	public void setComplement(String complement) {
+		this.complement = complement;
+	}
+
+	public String getNeighborhood() {
+		return neighborhood;
+	}
+
+	public void setNeighborhood(String neighborhood) {
+		this.neighborhood = neighborhood;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public Integer getCidadeId() {
+		return cidadeId;
+	}
+
+	public void setCidadeId(Integer cidadeId) {
+		this.cidadeId = cidadeId;
+	}
+
+
 }

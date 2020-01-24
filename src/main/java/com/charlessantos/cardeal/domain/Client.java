@@ -107,7 +107,11 @@ public class Client implements Serializable {
 	public void setPurchaseOrders(List<PurchaseOrder> purchaseOrders) {
 		this.purchaseOrders = purchaseOrders;
 	}
-	
+
+	public List<Address> getAddress() {
+		return this.address;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
