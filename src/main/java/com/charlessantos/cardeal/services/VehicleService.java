@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.charlessantos.cardeal.domain.Car;
 import com.charlessantos.cardeal.domain.Vehicle;
+import com.charlessantos.cardeal.dto.CarDTO;
 import com.charlessantos.cardeal.repositories.VehicleRepository;
 import com.charlessantos.cardeal.services.exceptions.DataIntegrityException;
 import com.charlessantos.cardeal.services.exceptions.ObjectNotFoundException;
@@ -53,5 +54,10 @@ public class VehicleService {
 	public Page<Vehicle> findByPage(Integer pageIndice, Integer linesPerPage, String direction, String orderBy) {
 		PageRequest page = PageRequest.of(pageIndice, linesPerPage, Direction.valueOf(direction), orderBy);
 		return vehicleRepo.findAll(page);
+	}
+	
+	public Car fromDTO(CarDTO car) {
+		return new Car(car.getId(), car.getLicensePlate(), car.getVehicleModel(), car.getManufacturingYear(), car.getModelYear(),
+				car.getVersion(), car.getEngine(), car.getValve(), car.getDoor(), car.getColor(), car.getFuel(), car.getKilometers());
 	}
 }

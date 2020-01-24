@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.charlessantos.cardeal.domain.Car;
 import com.charlessantos.cardeal.domain.Vehicle;
+import com.charlessantos.cardeal.dto.CarDTO;
 import com.charlessantos.cardeal.dto.VehicleDTO;
 import com.charlessantos.cardeal.services.VehicleService;
 
@@ -33,8 +36,9 @@ public class VehicleResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> save(@RequestBody Car vehicle) {
-		Vehicle newVehicle = vehicleService.save(vehicle);
+	public ResponseEntity<Void> save(@Valid @RequestBody CarDTO vehicleDTO) {
+		Car vehicle = vehicleService.fromDTO(vehicleDTO);
+		Car newVehicle = vehicleService.save(vehicle);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newVehicle.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
