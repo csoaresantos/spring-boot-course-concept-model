@@ -129,8 +129,21 @@ public class CardealApplication implements CommandLineRunner {
 		Address addr1 = new Address(null, "Rua um", "1113A", "No complement", "Mangabeira", "31678489", cli1, city1);
 		Address addr2 = new Address(null, "Rua três", "13A", "No complement", "California", "31678489", cli1, city2);
 		
-		clientRepo.saveAll(Arrays.asList(cli1));
-		addressRepo.saveAll(Arrays.asList(addr1, addr2));
+		
+		Client cli3 = new Client(null, "Charles Soares", "vando@gmail.com", "00000000000", TypeClient.PHYSICALPERSON);
+		Address addr3 = new Address(null, "Rua um", "1113A", "No complement", "Mangabeira", "31678489", cli3, city1);
+		
+		Client cli4 = new Client(null, "Zandar do Brasil", "vando@gmail.com", "00000000000", TypeClient.PHYSICALPERSON);
+		Address addr4 = new Address(null, "Rua um", "1113A", "No complement", "Bandeirantes", "31678489", cli4, city1);
+		
+		Client cli5 = new Client(null, "Ana Maria Braga", "vando@gmail.com", "00000000000", TypeClient.PHYSICALPERSON);
+		Address addr5 = new Address(null, "Rua um", "1113A", "No complement", "Santa Amelia", "31678489", cli5, city1);
+		
+		Client cli6 = new Client(null, "Wilmar", "vando@gmail.com", "00000000000", TypeClient.PHYSICALPERSON);
+		Address addr6 = new Address(null, "Rua um", "1113A", "No complement", "Breslavia", "31678489", cli6, city1);
+		
+		clientRepo.saveAll(Arrays.asList(cli1, cli3, cli4, cli5, cli6));
+		addressRepo.saveAll(Arrays.asList(addr1, addr2, addr3,addr4,addr5,addr6));
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		PurchaseOrder order1 = new PurchaseOrder(null, dateFormat.parse("30/09/2018 10:30"),cli1, addr1);
