@@ -75,4 +75,17 @@ public class VehicleResource {
 		
 		return ResponseEntity.ok().body(pageDTO);
 	}
+
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public ResponseEntity<Page<VehicleDTO>> search(
+			@RequestParam(value="model", defaultValue="0") String modelId,
+			@RequestParam(value="page", defaultValue="0") Integer page,
+			@RequestParam(value="size", defaultValue="24") Integer size,
+			@RequestParam(value="direction", defaultValue="ASC") String direction,
+			@RequestParam(value="orderBy", defaultValue="licensePlate") String orderBy) {
+		
+		Page<Vehicle> items = vehicleService.findByModel(Integer.parseInt(modelId), page, size, direction, orderBy);
+		Page<VehicleDTO> pageDTO = items.map(converter -> new VehicleDTO(converter));
+		return ResponseEntity.ok().body(pageDTO);
+	}
 }
