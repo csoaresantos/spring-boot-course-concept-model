@@ -67,9 +67,17 @@ public class ItemOrder implements Serializable {
 	public PurchaseOrder getPurchaseOrder() {
 		return id.getOrder();
 	}
-	
+
+	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+		this.id.setOrder(purchaseOrder);
+	}
+
 	public Product getProduct() {
 		return id.getProduct();
+	}
+
+	public void setProduct(Product product) {
+		this.id.setProduct(product);
 	}
 
 	@Override

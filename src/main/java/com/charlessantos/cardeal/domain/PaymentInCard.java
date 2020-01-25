@@ -3,8 +3,10 @@ package com.charlessantos.cardeal.domain;
 import javax.persistence.Entity;
 
 import com.charlessantos.cardeal.domain.enums.StatusPayment;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Entity
+@JsonTypeName("paymentInCard")
 public class PaymentInCard extends Payment {
 	private static final long serialVersionUID = 1L;
 	
